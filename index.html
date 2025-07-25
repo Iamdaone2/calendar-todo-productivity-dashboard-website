@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Productivity Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <label class="switch">
+        <input type="checkbox" id="darkModeToggle">
+        <span class="slider">
+            <span class="icon sun">☀️</span>
+            <span class="icon moon">🌙</span>
+        </span>
+    </label>
+
+    <div class="container">
+        <header>
+            <h1 id="greeting">Hello!</h1>
+            <div id="clock">00:00:00</div>
+        </header>
+
+        <section class="quote-section">
+            <h2>💬 Quote of the Day</h2>
+            <p id="quote">Loading...</p>
+        </section>
+
+        <section class="todo-section">
+            <h2>✅ Today's Tasks</h2>
+            <ul id="task-list"></ul>
+            <div class="task-input">
+                <input type="text" id="new-task" placeholder="Add a task for today..." />
+                <input type="time" id="task-time" />
+                <button id="add-task">Add</button>
+            </div>
+        </section>
+
+        <section class="calendar-section">
+            <h2>📅 Calendar</h2>
+            <div class="view-toggle">
+                <button class="view-btn active" data-view="month">Month</button>
+                <button class="view-btn" data-view="year">Year</button>
+            </div>
+            
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button class="calendar-nav" id="prev-btn">‹</button>
+                    <div class="calendar-title" id="calendar-title">January 2025</div>
+                    <button class="calendar-nav" id="next-btn">›</button>
+                </div>
+                
+                <div id="month-view">
+                    <div class="calendar-grid" id="calendar-grid">
+                        <!-- Calendar will be generated here -->
+                    </div>
+                </div>
+                
+                <div id="year-view" style="display: none;">
+                    <div class="year-grid" id="year-grid">
+                        <!-- Year view will be generated here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-section">
+            <h2>📊 Productivity Stats</h2>
+            <p id="daily-stats">Tasks completed today: 0</p>
+            <p id="total-completed-tasks">Total tasks completed ever: 0</p>
+            <button id="reset-total-completed">Reset Total Completed</button>
+        </section>
+
+        <section class="pomodoro-section">
+            <h2>🍅 Pomodoro Timer (Focus)</h2>
+            <div id="pomodoro-timer">25:00</div>
+            <div class="pomodoro-controls">
+                <button id="start-pomodoro">Start</button>
+                <button id="pause-pomodoro" disabled>Pause</button>
+                <button id="reset-pomodoro" disabled>Reset</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal for adding tasks to specific dates -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Add Task for Date</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="task-input">
+                <input type="text" id="modal-task-input" placeholder="Enter task..." />
+                <input type="time" id="modal-task-time" />
+                <button id="modal-add-task">Add Task</button>
+            </div>
+            <div id="modal-existing-tasks">
+                <h4>Existing tasks for this date:</h4>
+                <ul id="modal-task-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
