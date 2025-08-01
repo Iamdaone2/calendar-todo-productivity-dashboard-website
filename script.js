@@ -4,7 +4,7 @@ let currentView = 'month';
 let selectedDate = null;
 let allTasks = {};
 
-// Initialize everything
+// Initialize 
 document.addEventListener('DOMContentLoaded', function() {
     loadAllTasks();
     setGreeting();
@@ -43,12 +43,10 @@ function saveAllTasks() {
     localStorage.setItem('allTasks', JSON.stringify(allTasks));
 }
 
-// Get today's date string
 function getToday() {
     return new Date().toISOString().split('T')[0];
 }
 
-// Update greeting based on time
 function setGreeting() {
     const greeting = document.getElementById("greeting");
     const hour = new Date().getHours();
@@ -68,7 +66,6 @@ function updateClock() {
     clock.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 }
 
-// Random motivational quote
 function setQuote() {
     const quotes = [
         "Don't watch the clock; do what it does. Keep going.",
@@ -103,7 +100,6 @@ function setupTodoList() {
     });
 }
 
-// Add task to a specific date
 function addTask(dateStr, text, completed = false, reminderTime = null) {
     if (!allTasks[dateStr]) {
         allTasks[dateStr] = [];
@@ -112,7 +108,6 @@ function addTask(dateStr, text, completed = false, reminderTime = null) {
     const task = { text, completed, reminderTime };
     allTasks[dateStr].push(task);
     
-    // If it's today's task, add to the main list
     if (dateStr === getToday()) {
         addTaskToList(text, completed, reminderTime);
     }
@@ -122,7 +117,6 @@ function addTask(dateStr, text, completed = false, reminderTime = null) {
     updateDailyStats();
 }
 
-// Add task to the DOM list
 function addTaskToList(text, completed = false, reminderTime = null) {
     const taskList = document.getElementById("task-list");
     const li = document.createElement("li");
@@ -178,7 +172,6 @@ function addTaskToList(text, completed = false, reminderTime = null) {
     taskList.appendChild(li);
 }
 
-// Update daily stats
 function updateDailyStats() {
     const today = getToday();
     const todayTasks = allTasks[today] || [];
@@ -186,7 +179,6 @@ function updateDailyStats() {
     document.getElementById("daily-stats").textContent = `Tasks completed today: ${completedCount}`;
 }
 
-// Setup calendar
 function setupCalendar() {
     document.getElementById('prev-btn').addEventListener('click', () => {
         if (currentView === 'month') {
@@ -206,7 +198,6 @@ function setupCalendar() {
         renderCalendar();
     });
 
-    // View toggle
     document.querySelectorAll('.view-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
@@ -225,7 +216,6 @@ function setupCalendar() {
         });
     });
 
-    // Modal setup
     const modal = document.getElementById('taskModal');
     const closeBtn = document.querySelector('.close');
     
@@ -284,7 +274,6 @@ function renderMonthView() {
     const grid = document.getElementById('calendar-grid');
     grid.innerHTML = '';
 
-    // Day headers
     const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     dayHeaders.forEach(day => {
         const header = document.createElement('div');
@@ -293,7 +282,6 @@ function renderMonthView() {
         grid.appendChild(header);
     });
 
-    // Calendar days
     for (let i = 0; i < 42; i++) {
         const date = new Date(startDate);
         date.setDate(startDate.getDate() + i);
@@ -347,7 +335,6 @@ function renderMonthView() {
     }
 }
 
-// Render year view
 function renderYearView() {
     const year = currentDate.getFullYear();
     document.getElementById('calendar-title').textContent = year;
@@ -366,7 +353,6 @@ function renderYearView() {
         const monthGrid = document.createElement('div');
         monthGrid.className = 'month-mini-grid';
 
-        // Add day headers
         const dayHeaders = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
         dayHeaders.forEach(day => {
             const header = document.createElement('div');
@@ -381,7 +367,6 @@ function renderYearView() {
         const startDate = new Date(firstDay);
         startDate.setDate(startDate.getDate() - firstDay.getDay());
 
-        // Generate mini calendar days
         for (let i = 0; i < 42; i++) {
             const date = new Date(startDate);
             date.setDate(startDate.getDate() + i);
@@ -406,7 +391,6 @@ function renderYearView() {
         monthElement.appendChild(monthTitle);
         monthElement.appendChild(monthGrid);
 
-        // Click to go to month view
         monthElement.addEventListener('click', () => {
             currentDate = new Date(year, month, 1);
             currentView = 'month';
@@ -421,7 +405,6 @@ function renderYearView() {
     }
 }
 
-// Open task modal for specific date
 function openTaskModal(date, tasks) {
     const modal = document.getElementById('taskModal');
     const modalTitle = document.getElementById('modal-title');
@@ -437,7 +420,6 @@ function openTaskModal(date, tasks) {
     modal.style.display = 'block';
 }
 
-// Update modal task list
 function updateModalTaskList() {
     const taskList = document.getElementById('modal-task-list');
     taskList.innerHTML = '';
@@ -473,7 +455,7 @@ function updateModalTaskList() {
             updateModalTaskList();
             renderCalendar();
             if (selectedDate === getToday()) {
-                loadAllTasks(); // Refresh today's list
+                loadAllTasks(); 
             }
         });
 
@@ -494,7 +476,7 @@ function updateModalTaskList() {
             updateModalTaskList();
             renderCalendar();
             if (selectedDate === getToday()) {
-                loadAllTasks(); // Refresh today's list
+                loadAllTasks();
             }
         });
 
@@ -520,7 +502,6 @@ function updateTotalCompletedDisplay() {
     document.getElementById("total-completed-tasks").textContent = `Total tasks completed ever: ${total}`;
 }
 
-// Setup theme toggle
 function setupThemeToggle() {
     const toggle = document.getElementById('darkModeToggle');
     const savedTheme = localStorage.getItem("theme");
@@ -540,7 +521,6 @@ function setupThemeToggle() {
     });
 }
 
-// Setup reset total completed
 function setupResetTotalCompleted() {
     const resetBtn = document.getElementById("reset-total-completed");
     resetBtn.addEventListener("click", () => {
@@ -556,7 +536,7 @@ function setupPomodoro() {
     const pauseBtn = document.getElementById("pause-pomodoro");
     const resetBtn = document.getElementById("reset-pomodoro");
 
-    let timer = 25 * 60; // 25 minutes in seconds
+    let timer = 25 * 60; 
     let interval = null;
     let isRunning = false;
 
